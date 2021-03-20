@@ -18,7 +18,7 @@ class Geometry {
     this.camera.position.x = 0;
     this.camera.position.y = 5;
 
-    this.criaCubo();
+    this.createGeometry();
 
     this.animation();
 
@@ -38,7 +38,7 @@ class Geometry {
     return new THREE.Mesh(tetrahedron, material);
   }
 
-  criaCubo() {
+  createGeometry() {
     const cylinder = this.cylinder();
     cylinder.position.x = -3;
     cylinder.numberY = Math.random() * -1;
