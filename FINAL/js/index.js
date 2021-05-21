@@ -1,7 +1,7 @@
-var scene; //mundo virtual
-var camera; //area de visualização
-var renderer; //responsavel por renderizar tudo
-var controls; //controle do mouser
+var scene;
+var camera;
+var renderer;
+var controls;
 
 var parametrosGUI = {};
 var animationFolder;
@@ -15,7 +15,7 @@ var lights = [];
 
 var wolfVelocity = 0.05;
 
-//variaveis para animação
+
 var mixer;
 var modelReady = false;
 var animationActions = Array();
@@ -25,7 +25,6 @@ var loadFinished;
 var clock = new THREE.Clock();
 
 
-//Var para add a camera com o lobo
 var char;
 
 var charBounding;
@@ -72,7 +71,7 @@ var objLoading = function () {
 
 			activeAction = animation;
 
-			//adiciona as animações a GUI
+
 			animationFolder.add(parametrosGUI, "Tchauzinho");
 			animationFolder.add(parametrosGUI, "Feliz");
 			animationFolder.add(parametrosGUI, "Correndo");
@@ -138,14 +137,10 @@ var objLoading = function () {
 var sound
 
 const inicializeSound = function () {
-	// create an AudioListener and add it to the camera
 	const listener = new THREE.AudioListener();
 	camera.add(listener);
-
-	// create a global audio source
 	sound = new THREE.Audio(listener);
 
-	// load a sound and set it as the Audio object's buffer
 	const audioLoader = new THREE.AudioLoader();
 	audioLoader.load('assets/music.mp3', function (buffer) {
 		sound.setBuffer(buffer);
@@ -156,7 +151,6 @@ const inicializeSound = function () {
 }
 
 
-//troca a ação do nosso modelo
 const setAction = function (toAction) {
 	console.log(lastAction);
 	lastAction = activeAction;
@@ -319,12 +313,12 @@ var init = function () {
 	scene.background = new THREE.Color(0xcce0ff);
 
 
-	//	Camera em perspectiva
+
 	camera = new THREE.PerspectiveCamera(
-		50, // view angle
-		window.innerWidth / window.innerHeight, //aspect ratio
-		1, //near
-		500 //far
+		50,
+		window.innerWidth / window.innerHeight,
+		1,
+		500
 	);
 
 	renderer = new THREE.WebGLRenderer({ antialias: true });
@@ -343,15 +337,15 @@ var init = function () {
 	animation();
 
 
-	//criar um piso.
+
 	let textureLoad = new THREE.TextureLoader();
-	let groundTexture = textureLoad.load("assets/texturas/road.png"); //busca a imagem
-	groundTexture.wrapS = groundTexture.wrapT = THREE.RepeatWrapping; //quero que ela se repita
-	groundTexture.encoding = THREE.sRGBEncoding; //padrão cores, sempre que existir será informado
-	groundTexture.repeat.set(25, 25); //número de vezes que ela vai se repetir dentro do nosso chão
+	let groundTexture = textureLoad.load("assets/texturas/road.png");
+	groundTexture.wrapS = groundTexture.wrapT = THREE.RepeatWrapping;
+	groundTexture.encoding = THREE.sRGBEncoding;
+	groundTexture.repeat.set(25, 25);
 
 	let materialGround = new THREE.MeshLambertMaterial({ map: groundTexture });
-	materialGround.normalMap = textureLoad.load("assets/texturas/road.png"); //busca a normal, que da noção básica de profundidade
+	materialGround.normalMap = textureLoad.load("assets/texturas/road.png");
 
 
 	ground = new THREE.Mesh(
@@ -359,13 +353,13 @@ var init = function () {
 		materialGround
 	);
 
-	ground.receiveShadow = true;//chao recebe as sombras.
+	ground.receiveShadow = true;
 	ground.rotation.x = - Math.PI / 2;
 	ground.position.y -= 7.5;
 	scene.add(ground);
 	godSaysLightsOn();
 
-	//camera.add(lights["spot"]);
+
 	let skyTexture = textureLoad.load('assets/texturas/sky.jpg');
 	skyTexture.wrapS = skyTexture.wrapT = THREE.RepeatWrapping;
 	skyTexture.repeat.set(1, 1);
@@ -386,7 +380,7 @@ var animation = function () {
 	if (loadFinished) {
 		mixer.update(delta);
 	}
-	renderer.render(scene, camera); //tira uma foto do estado e mostra na tela
+	renderer.render(scene, camera);
 }
 
 function paraRadianos(angulo) {
